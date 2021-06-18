@@ -86,7 +86,7 @@ resource "azurerm_storage_container" "tfstate" {
 }
 
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = "example-aks1"
+  name                = local.aks_name
   location            = azurerm_resource_group.rsg.location
   resource_group_name = azurerm_resource_group.rsg.name
   dns_prefix          = local.aks_name
@@ -104,4 +104,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
   tags = {
     Environment = "Playground"
   }
+
+  depends_on = [azurerm_resource_group.rsg]
 }
